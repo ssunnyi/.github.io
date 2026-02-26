@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>五年级下册数学AI教学助手</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+</head>
+<body class="bg-gray-50">
+<div class="max-w-6xl mx-auto p-4 space-y-8 mb-10">
+
+<div class="text-center">
+<h1 class="text-2xl font-bold text-indigo-600">人教版五年级数学下册 AI教学评一体化平台</h1>
+<p class="text-gray-600">AI资源生成 · 课堂互动 · 个性化辅导 · 智能评价</p>
+</div>
+
+<!-- 1 AI资源生成 -->
+<div class="bg-white p-6 rounded-xl shadow">
+<h2 class="text-lg font-bold mb-4 flex items-center"><i class="fa fa-magic text-indigo-500 mr-2"></i>AI教学资源生成（五年级下册）</h2>
+<div class="grid md:grid-cols-2 gap-4">
+<div>
+<label>单元知识点</label>
+<select id="unit" class="w-full p-2 border rounded mb-2">
+<option value="cube">长方体和正方体</option>
+<option value="factor">因数与倍数</option>
+<option value="fraction">分数的意义和性质</option>
+<option value="addsub">分数加减法</option>
+<option value="view">观察物体</option>
+<option value="graph">图形的运动</option>
+<option value="chart">折线统计图</option>
+<option value="find">找次品</option>
+</select>
+
+<label>资源类型</label>
+<select id="restype" class="w-full p-2 border rounded mb-2">
+<option value="lesson">教案</option>
+<option value="test">练习题</option>
+<option value="ppt">课件要点</option>
+</select>
+
+<button onclick="genResource()" class="bg-indigo-600 text-white p-2 rounded w-full">生成资源</button>
+</div>
+<div>
+<div id="resOutput" class="p-3 border rounded h-64 overflow-auto bg-gray-50">请选择知识点并生成</div>
+</div>
+</div>
+</div>
+
+<!-- 2 课堂互动 -->
+<div class="bg-white p-6 rounded-xl shadow">
+<h2 class="text-lg font-bold mb-4 flex items-center"><i class="fa fa-comments text-indigo-500 mr-2"></i>AI课堂互动答题</h2>
+<div class="grid md:grid-cols-2 gap-4">
+<div>
+<button onclick="genQuestion()" class="bg-blue-600 text-white p-2 rounded w-full mb-3">生成五年级下册题目</button>
+<div id="qShow" class="p-3 border rounded mb-2">点击生成题目</div>
+<div class="grid grid-cols-2 gap-2">
+<button onclick="checkAns('A')" class="p-2 border rounded" id="opA">A</button>
+<button onclick="checkAns('B')" class="p-2 border rounded" id="opB">B</button>
+<button onclick="checkAns('C')" class="p-2 border rounded" id="opC">C</button>
+<button onclick="checkAns('D')" class="p-2 border rounded" id="opD">D</button>
+</div>
+</div>
+<div>
+<div id="feedback" class="p-3 border rounded h-64 overflow-auto bg-gray-50">等待答题……</div>
+</div>
+</div>
+</div>
+
+<!-- 3 个性化辅导 -->
+<div class="bg-white p-6 rounded-xl shadow">
+<h2 class="text-lg font-bold mb-4 flex items-center"><i class="fa fa-user-md text-indigo-500 mr-2"></i>AI个性化错题辅导</h2>
+<div class="grid md:grid-cols-2 gap-4">
+<div>
+<label>选择错题类型</label>
+<select id="errtype" class="w-full p-2 border rounded mb-2">
+<option value="cube">长方体正方体公式错</option>
+<option value="fen">分数通分约分错</option>
+<option value="bei">2、3、5倍数判断错</option>
+<option value="add">分数加减法未通分</option>
+<option value="ti">体积容积单位混淆</option>
+</select>
+<button onclick="analyzeErr()" class="bg-orange-500 text-white p-2 rounded w-full">AI分析错题</button>
+</div>
+<div>
+<div id="errOut" class="p-3 border rounded h-64 overflow-auto bg-gray-50">请选择错题类型</div>
+</div>
+</div>
+</div>
+
+<!-- 4 教学评价 -->
+<div class="bg-white p-6 rounded-xl shadow">
+<h2 class="text-lg font-bold mb-4 flex items-center"><i class="fa fa-line-chart text-indigo-500 mr-2"></i>AI教学评价报告</h2>
+<button onclick="genReport()" class="bg-green-600 text-white p-2 rounded w-full mb-3">生成评价报告</button>
+<div id="report" class="p-3 border rounded h-64 overflow-auto bg-gray-50">点击生成报告</div>
+</div>
+
+</div>
+
+<script>
+// 资源生成
+function genResource(){
+var u = document.getElementById("unit").value;
+var t = document.getElementById("restype").value;
+var txt = "";
+if(u=="cube"){
+if(t=="lesson") txt="【长方体和正方体·教案】\n1.认识长方体、正方体的棱、顶点、面\n2.掌握表面积、体积、容积公式\n3.区分体积与容积单位\n4.解决实际问题";
+if(t=="test") txt="【练习题】\n1.一个长方体长5cm，宽3cm，高2cm，表面积？体积？\n2.一个正方体棱长4dm，体积？\n3.3.2升=( )毫升";
+if(t=="ppt") txt="【课件要点】\n• 长方体表面积=(ab+ah+bh)×2\n• 体积V=abh\n• 正方体V=a³\n• 1L=1dm³ 1mL=1cm³";
+}
+if(u=="factor"){
+if(t=="lesson") txt="【因数与倍数·教案】\n1.因数、倍数概念\n2.2、3、5的倍数特征\n3.质数、合数\n4.最大公因数、最小公倍数";
+if(t=="test") txt="1. 18的因数有哪些？\n2. 30以内5的倍数？\n3. 判断：29是质数吗？";
+if(t=="ppt") txt="• 2的倍数：偶数\n• 5的倍数：末尾0/5\n• 3的倍数：各位和是3的倍数";
+}
+if(u=="fraction"){
+if(t=="lesson") txt="【分数意义和性质·教案】\n1.分数意义、单位\n2.真分数、假分数\n3.分数基本性质\n4.约分、通分";
+if(t=="test") txt="1. 3/4 的分数单位？\n2. 约分 12/18\n3. 通分 1/3 和 1/4";
+if(t=="ppt") txt="• 分子分母同乘除，大小不变\n• 约分：除以最大公因数\n• 通分：找最小公倍数";
+}
+if(u=="addsub"){
+if(t=="lesson") txt="【分数加减法·教案】\n1.同分母直接加减\n2.异分母先通分\n3.结果化简\n4.小数分数互化运算";
+if(t=="test") txt="1. 1/4 + 2/4 =?\n2. 1/2 + 1/3 =?\n3. 3/5 - 1/2 =?";
+if(t=="ppt") txt="• 同分母：分子加减\n• 异分母：先通分再计算\n• 最后必须最简分数";
+}
+document.getElementById("resOutput").innerText = txt;
+}
+
+// 互动答题
+var ans = "";
+function genQuestion(){
+var q = ["一个长方体长5宽3高2，体积是？","30的因数中质数有几个？","1/2 + 1/3 =？","判断：27是3的倍数","一个正方体棱长4，表面积是？"];
+var a = ["30","2个","5/6","对","96"];
+var opts = [["30","60","20","10"],["1个","2个","3个","4个"],["5/6","1","2/5","1/6"],["对","错"],["96","64","16","48"]];
+var k = Math.floor(Math.random()*q.length);
+document.getElementById("qShow").innerText = q[k];
+document.getElementById("opA").innerText = "A "+opts[k][0];
+document.getElementById("opB").innerText = "B "+opts[k][1];
+document.getElementById("opC").innerText = opts[k][2]?"C "+opts[k][2]:"C —";
+document.getElementById("opD").innerText = opts[k][3]?"D "+opts[k][3]:"D —";
+ans = a[k];
+}
+function checkAns(c){
+var sel = document.getElementById("op"+c).innerText.replace(/[A-D]\s*/,"");
+var f = sel==ans ? "回答正确！知识点掌握良好" : "回答错误，AI建议：复习公式/通分/倍数特征";
+document.getElementById("feedback").innerText = f+"\n正确答案："+ans;
+}
+
+// 错题辅导
+function analyzeErr(){
+var e = document.getElementById("errtype").value;
+var o = "";
+if(e=="cube") o="【错误分析】表面积与体积公式混淆\n【AI辅导】记住：表面积求外壳，体积求空间\n【练习】长4宽3高1，分别求表面积与体积";
+if(e=="fen") o="【错误分析】通分未找最小公倍数\n【AI辅导】先求最小公倍数，分子同步扩大\n【练习】通分 2/3 和 5/6";
+if(e=="bei") o="【错误分析】3的倍数不能只看末尾\n【AI辅导】各位数字之和是3的倍数就是\n【练习】判断123、253是否是3的倍数";
+if(e=="add") o="【错误分析】异分母直接加减分子\n【AI辅导】必须先通分再加减\n【练习】1/4 + 1/5";
+if(e=="ti") o="【错误分析】体积与容积单位混用\n【AI辅导】1L=1dm³，1mL=1cm³，容积从里面量";
+document.getElementById("errOut").innerText = o;
+}
+
+// 评价报告
+function genReport(){
+var r = `【五年级下册AI教学评价报告】
+1. 长方体正方体：正确率78%，易错点：公式混淆
+2. 因数倍数：正确率85%，易错点：3的倍数判断
+3. 分数意义：正确率72%，易错点：通分约分
+4. 分数加减法：正确率70%，易错点：未通分
+5. 整体建议：加强体积、分数、倍数专题训练
+`;
+document.getElementById("report").innerText = r;
+}
+</script>
+</body>
+</html>
